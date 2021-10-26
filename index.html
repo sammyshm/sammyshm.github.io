@@ -141,6 +141,111 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-10-25T08:09:52.000Z">2021-10-25</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    13 minutes read (About 1995 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/10/25/常见的编码样式/">常见的编码样式</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="常见的编码样式"><a href="#常见的编码样式" class="headerlink" title="常见的编码样式"></a>常见的编码样式</h1><p>本文参考知乎文章<a href="https://zhuanlan.zhihu.com/p/46216008" target="_blank" rel="noopener">程序员必备：彻底弄懂常见的7种中文字符编码</a></p>
+<h2 id="一、什么是编码？"><a href="#一、什么是编码？" class="headerlink" title="一、什么是编码？"></a>一、什么是编码？</h2><p>众所周知，在计算机里，所有内容都是通过0和1表示，那么要怎样才能使汉字正确的显示出来呢？</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.给所有的汉字一个专属的数字编号。</span><br><span class="line">2.把这个数字编号用0和1表示出来。</span><br></pre></td></tr></table></figure>
+
+<p>但是，在0和1的世界里怎么才能分割字与字呢？<br>例如：我们把“中”这个汉字编为1号，即在二进制中表示为<strong>00000001</strong><br>我们再把“国”这个汉字编为5号，即二进制表示为<strong>00000101</strong><br>但是汉字数量十分庞大，靠一个字节只能表示256个汉字。<br>假设我们把一个汉字编为133号，表示为<strong>00000001 00000101</strong></p>
+<p>问题是当计算机读到<em>00000001 00000101</em>时，他应该显示“中国”两个字还是显示第133号汉字呢？<br>因此如何分隔字符也是编码的一部分。</p>
+<p><strong>这时候编码的重要性就显现出来了</strong></p>
+<h2 id="二、几种中文编码的关系"><a href="#二、几种中文编码的关系" class="headerlink" title="二、几种中文编码的关系"></a>二、几种中文编码的关系</h2><p>我们来看一张图<br><img src="/images/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BC%96%E7%A0%81%E6%A0%B7%E5%BC%8F/p1.jpg" alt="几种中文编码的兼容性"></p>
+<p>图中我们可以看出，ASCII被所有编码兼容，而最常见的UTF8与GBK之间除了ASCII部分之外没有交集，这也是平时业务中最常见的导致乱码场景，使用UTF8去读取GBK编码的文字，可能会看到各种乱码。而GB系列的几种编码，GB18030兼容GBK，GBK又兼容GB2312，下文细讲。</p>
+<h2 id="三、ASCII编码"><a href="#三、ASCII编码" class="headerlink" title="三、ASCII编码"></a>三、ASCII编码</h2><p>ASCII编码每个字母或符号占1字节，并且最高位是0，<strong>使得其编码的字符只有128个。</strong><br>但有些编码把最高位为1的另外128个值也编上，让它可以表示256个值，但这属于ASCII的拓展，</p>
+<h2 id="并非标准的ASCII。我们通常所说的标准ASCII只有前128个值！"><a href="#并非标准的ASCII。我们通常所说的标准ASCII只有前128个值！" class="headerlink" title="并非标准的ASCII。我们通常所说的标准ASCII只有前128个值！"></a>并非标准的ASCII。我们通常所说的标准ASCII只有前128个值！</h2><p>我们来看一下ASCII的编码表<br><img src="images/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BC%96%E7%A0%81%E6%A0%B7%E5%BC%8F/p2.jpg" alt="ASCII"></p>
+<h2 id="四、GB2312、GBK和GB18030编码"><a href="#四、GB2312、GBK和GB18030编码" class="headerlink" title="四、GB2312、GBK和GB18030编码"></a>四、GB2312、GBK和GB18030编码</h2><p>GB全称GuoBiao国标，GBK全称GuoBiaoKuozhan国标扩展。GB18030编码兼容GBK，GBK兼容GB2312，其实这三种编码有着非常深厚的渊源，我们放在一起进行比较。</p>
+<h3 id="（一）GB2312"><a href="#（一）GB2312" class="headerlink" title="（一）GB2312"></a>（一）GB2312</h3><p>最早一版的中文编码，每个字占据2bytes。由于要和ASCII兼容，那这2bytes最高位不可以为0了（否则和ASCII会有冲突）。在GB2312中收录了6763个汉字以及682个特殊符号，已经囊括了生活中最常用的所有汉字。<br>GB2312编码表有个值得注意的点，这个表中也有一些数字和字母，与ASCII里面的字母非常像。例如A3B2对应的是数字2（如下图），但是ASCII里面50（十进制）对应的也是数字2。他们的区别就是输入法中所说的“半角”和“全角”。全角的数字2占两个字节。</p>
+<h2 id="通常，我们在打字或编程中都使用半角，即ASCII来编写数字或英文字母。特别是编程中，如果写全角的数字或字母，编译器很有可能不认识……"><a href="#通常，我们在打字或编程中都使用半角，即ASCII来编写数字或英文字母。特别是编程中，如果写全角的数字或字母，编译器很有可能不认识……" class="headerlink" title="通常，我们在打字或编程中都使用半角，即ASCII来编写数字或英文字母。特别是编程中，如果写全角的数字或字母，编译器很有可能不认识……"></a>通常，我们在打字或编程中都使用半角，即ASCII来编写数字或英文字母。特别是编程中，如果写全角的数字或字母，编译器很有可能不认识……</h2><p><img src="images/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BC%96%E7%A0%81%E6%A0%B7%E5%BC%8F/p3.png" alt="GB2312和ASCII重合的部分"></p>
+<h3 id="（二）GBK"><a href="#（二）GBK" class="headerlink" title="（二）GBK"></a>（二）GBK</h3><p>由于GB2312只有6763个汉字，我汉语博大精深，只有6763个字怎么够？于是GBK中在保证不和GB2312、ASCII冲突（即兼容GB2312和ASCII）的前提下，也用每个字占据2bytes的方式又编码了许多汉字。经过GBK编码后，可以表示的汉字达到了20902个，另有984个汉语标点符号、部首等。值得注意的是这20902个汉字还包含了繁体字，但是该繁体字与台湾Big5编码不兼容，因为同一个繁体字很可能在GBK和Big5中数字编码是不一样的。</p>
+<h3 id="（三）GB18030"><a href="#（三）GB18030" class="headerlink" title="（三）GB18030"></a>（三）GB18030</h3><p><strong>略</strong></p>
+<h2 id="五、UTF8编码-Unicode-Transformation-Format"><a href="#五、UTF8编码-Unicode-Transformation-Format" class="headerlink" title="五、UTF8编码(Unicode Transformation Format)"></a>五、UTF8编码(Unicode Transformation Format)</h2><p>99%的前端写网页时都会加上<meta charset="utf-8">，99%的后端工程师新建数据库表时都会加上DEFAULT CHARSET=utf8（剩下的1%应该是忘了写）。</p>
+<p>之所以我们想让UTF8一统天下，就是因为UTF8可以表示出世界上所有的文字！UTF8与前面说的GB系列编码不兼容，所以如果一个文件中即有UTF8编码的文字，又有GB18030编码的文字，那绝对会有乱码。</p>
+<p>Unicode赋予了全世界所有文字和符号一个独一无二的数字编号，UTF8所做的事情就是把这个数字编号表示出来（即解决前文提到的第2件事情）。<br><strong>UTF8解决字符间分隔的方式是数二进制中最高位连续1的个数来决定这个字是几字节编码。</strong></p>
+<h2 id="0开头的属于单字节，和ASCII码重合，做到了兼容。"><a href="#0开头的属于单字节，和ASCII码重合，做到了兼容。" class="headerlink" title="0开头的属于单字节，和ASCII码重合，做到了兼容。"></a>0开头的属于单字节，和ASCII码重合，做到了兼容。</h2><table>
+<thead>
+<tr>
+<th>字节数</th>
+<th>二进制编码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单字节</td>
+<td>0XXXXXXX</td>
+</tr>
+<tr>
+<td>双字节</td>
+<td>110XXXXX 10XXXXXX</td>
+</tr>
+<tr>
+<td>三字节</td>
+<td>1110XXXX 10XXXXXX 10XXXXXX</td>
+</tr>
+<tr>
+<td>四字节</td>
+<td>11110XXX 10XXXXXX 10XXXXXX 10XXXXXX</td>
+</tr>
+<tr>
+<td>五字节</td>
+<td>111110XX 10XXXXXX 10XXXXXX 10XXXXXX 10XXXXXX</td>
+</tr>
+<tr>
+<td>六字节</td>
+<td>1111110X 10XXXXXX 10XXXXXX 10XXXXXX 10XXXXXX 10XXXXXX</td>
+</tr>
+<tr>
+<td>—</td>
+<td></td>
+</tr>
+<tr>
+<td>以三字节为例，开头第一个字节的”1110”，有连续三个1，说明包括本字节在内，接下来三个字节一起构成了一个文字。凡是不属于文字首字节的byte都以“10”开头，上表中标注X的位置才是真正用来表示Unicode数值的。</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>这种巧妙设计，把Unicode的数值和每个字的字节数融合在一起，最坏情况是6个字节表示一个字，已经足够表示世界上所有语言的所有文字了。不过从这种表示方式也可以很显然地看出来，UTF8和GBK没有任何关系，除了都兼容ASCII以外。</p>
+<p><img src="images/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BC%96%E7%A0%81%E6%A0%B7%E5%BC%8F/p4.jpg" alt="“鹅”字的UTF-8编码计算过程"></p>
+<p>举例说明，中文“鹅”字，Unicode十进制值为40517（16进制为9E45，2进制为1001 1110 0100 0101）。<br>这个2进制值长度为12位，查询上面表格发现，二字节不够表示，四字节太长，三字节刚好，因此可以表示为 11101001 10111001 10000101，<br>换算为16进制即E9B985，这就是“鹅”字的UTF8编码，占3字节。另外，经查询，“鹅”的GBK编码为B6EC，和UTF8的值完全不相干。</p>
+<p>对于中文汉字来说，所有常用汉字的Unicode值都可以用3字节的UTF8表示出来，而GBK编码的汉字基本是2字节（GB18030虽4字节但是日常没人会写那些字）。<br>这也就导致了，如果把GBK编码的中文文本另存为UTF8编码，体积会大50%左右。这也是UTF8的一点小瑕疵，存储同样的汉字，体积比GBK要大50%。</p>
+<h2 id="六、其他"><a href="#六、其他" class="headerlink" title="六、其他"></a>六、其他</h2><h3 id="（一）ANSI编码"><a href="#（一）ANSI编码" class="headerlink" title="（一）ANSI编码"></a>（一）ANSI编码</h3><p>ANSI不是指具体的编码方式，它只是在Windows操作系统上的别称。在中文简体Windows操作<br>系统上，ANSI就是GBK。而在其他语言环境下的ANSI则是其他的编码方式。</p>
+<h3 id="（二）Latin1编码（SIO-8559-1）"><a href="#（二）Latin1编码（SIO-8559-1）" class="headerlink" title="（二）Latin1编码（SIO-8559-1）"></a>（二）Latin1编码（SIO-8559-1）</h3><p>相信99%的人第一次听到Latin1都是在使用Mysql数据库的时候接触到的。Latin1是Mysql数据库表的默认编码方式。Latin1也是单字节编码方式，<br>也就是说最多只能表示256个字母或符号，并且前128个和ASCII完全吻合。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-06-14T07:10:11.000Z">2019-06-14</time>
                 
                 
@@ -496,7 +601,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        4
+                        5
                     </p>
                 </div>
             </div>
@@ -615,6 +720,25 @@
         
         <article class="media">
             
+            <a href="/2021/10/25/常见的编码样式/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="常见的编码样式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-25T08:09:52.000Z">2021-10-25</time></div>
+                    <a href="/2021/10/25/常见的编码样式/" class="has-link-black-ter is-size-6">常见的编码样式</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/06/14/Markdown基本语法/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="Markdown基本语法">
@@ -700,6 +824,17 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/06/">
@@ -750,6 +885,25 @@
         
         <article class="media">
             
+            <a href="/2021/10/25/常见的编码样式/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="常见的编码样式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-25T08:09:52.000Z">2021-10-25</time></div>
+                    <a href="/2021/10/25/常见的编码样式/" class="has-link-black-ter is-size-6">常见的编码样式</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/06/14/Markdown基本语法/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="Markdown基本语法">
@@ -837,6 +991,17 @@
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2021/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2019/06/">
                 <span class="level-start">
                     <span class="level-item">June 2019</span>
@@ -881,7 +1046,7 @@
                 
                 </a>
                 <p class="is-size-7">
-                &copy; 2019 John Doe&nbsp;
+                &copy; 2021 John Doe&nbsp;
                 Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
                 
                 </p>
