@@ -15,7 +15,7 @@
 <meta property="og:description" content="常见的编码样式本文参考知乎文章程序员必备：彻底弄懂常见的7种中文字符编码 一、什么是编码？众所周知，在计算机里，所有内容都是通过0和1表示，那么要怎样才能使汉字正确的显示出来呢？ 121.给所有的汉字一个专属的数字编号。2.把这个数字编号用0和1表示出来。  但是，在0和1的世界里怎么才能分割字与字呢？例如：我们把“中”这个汉字编为1号，即在二进制中表示为00000001我们再把“国”这个汉字编为">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2021-10-26T10:38:02.625Z">
+<meta property="og:updated_time" content="2021-10-26T11:07:29.034Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见的编码样式">
 <meta name="twitter:description" content="常见的编码样式本文参考知乎文章程序员必备：彻底弄懂常见的7种中文字符编码 一、什么是编码？众所周知，在计算机里，所有内容都是通过0和1表示，那么要怎样才能使汉字正确的显示出来呢？ 121.给所有的汉字一个专属的数字编号。2.把这个数字编号用0和1表示出来。  但是，在0和1的世界里怎么才能分割字与字呢？例如：我们把“中”这个汉字编为1号，即在二进制中表示为00000001我们再把“国”这个汉字编为">
@@ -181,8 +181,8 @@
 <h3 id="（三）GB18030"><a href="#（三）GB18030" class="headerlink" title="（三）GB18030"></a>（三）GB18030</h3><p><strong>略</strong></p>
 <h2 id="五、UTF8编码-Unicode-Transformation-Format"><a href="#五、UTF8编码-Unicode-Transformation-Format" class="headerlink" title="五、UTF8编码(Unicode Transformation Format)"></a>五、UTF8编码(Unicode Transformation Format)</h2><p>99%的前端写网页时都会加上<meta charset="utf-8">，99%的后端工程师新建数据库表时都会加上DEFAULT CHARSET=utf8（剩下的1%应该是忘了写）。</p>
 <p>之所以我们想让UTF8一统天下，就是因为UTF8可以表示出世界上所有的文字！UTF8与前面说的GB系列编码不兼容，所以如果一个文件中即有UTF8编码的文字，又有GB18030编码的文字，那绝对会有乱码。</p>
-<p>Unicode赋予了全世界所有文字和符号一个独一无二的数字编号，UTF8所做的事情就是把这个数字编号表示出来（即解决前文提到的第2件事情）。<br><strong>UTF8解决字符间分隔的方式是数二进制中最高位连续1的个数来决定这个字是几字节编码。</strong></p>
-<h2 id="0开头的属于单字节，和ASCII码重合，做到了兼容。"><a href="#0开头的属于单字节，和ASCII码重合，做到了兼容。" class="headerlink" title="0开头的属于单字节，和ASCII码重合，做到了兼容。"></a>0开头的属于单字节，和ASCII码重合，做到了兼容。</h2><table>
+<p>Unicode赋予了全世界所有文字和符号一个独一无二的数字编号，UTF8所做的事情就是把这个数字编号表示出来（即解决前文提到的第2件事情）。<br><strong>UTF8解决字符间分隔的方式是数二进制中最高位连续1的个数来决定这个字是几字节编码。</strong><br>0开头的属于单字节，和ASCII码重合，做到了兼容。</p>
+<table>
 <thead>
 <tr>
 <th>字节数</th>
@@ -213,15 +213,8 @@
 <td>六字节</td>
 <td>1111110X 10XXXXXX 10XXXXXX 10XXXXXX 10XXXXXX 10XXXXXX</td>
 </tr>
-<tr>
-<td>—</td>
-<td></td>
-</tr>
-<tr>
-<td>以三字节为例，开头第一个字节的”1110”，有连续三个1，说明包括本字节在内，接下来三个字节一起构成了一个文字。凡是不属于文字首字节的byte都以“10”开头，上表中标注X的位置才是真正用来表示Unicode数值的。</td>
-<td></td>
-</tr>
 </tbody></table>
+<p>以三字节为例，开头第一个字节的”1110”，有连续三个1，说明包括本字节在内，接下来三个字节一起构成了一个文字。凡是不属于文字首字节的byte都以“10”开头，上表中标注X的位置才是真正用来表示Unicode数值的。</p>
 <p>这种巧妙设计，把Unicode的数值和每个字的字节数融合在一起，最坏情况是6个字节表示一个字，已经足够表示世界上所有语言的所有文字了。不过从这种表示方式也可以很显然地看出来，UTF8和GBK没有任何关系，除了都兼容ASCII以外。</p>
 <p><img src="images/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BC%96%E7%A0%81%E6%A0%B7%E5%BC%8F/p4.jpg" alt="“鹅”字的UTF-8编码计算过程"></p>
 <p>举例说明，中文“鹅”字，Unicode十进制值为40517（16进制为9E45，2进制为1001 1110 0100 0101）。<br>这个2进制值长度为12位，查询上面表格发现，二字节不够表示，四字节太长，三字节刚好，因此可以表示为 11101001 10111001 10000101，<br>换算为16进制即E9B985，这就是“鹅”字的UTF8编码，占3字节。另外，经查询，“鹅”的GBK编码为B6EC，和UTF8的值完全不相干。</p>
@@ -324,7 +317,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Posts
+                        Articles
                     </p>
                     <p class="title has-text-weight-normal">
                         5
@@ -334,7 +327,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categories
+                        Catégories
                     </p>
                     <p class="title has-text-weight-normal">
                         0
@@ -354,7 +347,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/sammyshm" target="_blank">
-                Follow</a>
+                SUIVRE</a>
         </div>
         
         
@@ -385,7 +378,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Links
+            Liens
         </h3>
         <ul class="menu-list">
         
@@ -423,7 +416,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categories
+                Catégories
             </h3>
             <ul class="menu-list">
             
@@ -441,7 +434,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recent
+            Récents
         </h3>
         
         <article class="media">
@@ -606,7 +599,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recent
+            Récents
         </h3>
         
         <article class="media">
@@ -926,9 +919,9 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Posts',
+                POSTS: 'Articles',
                 PAGES: 'Pages',
-                CATEGORIES: 'Categories',
+                CATEGORIES: 'Catégories',
                 TAGS: 'Tags',
                 UNTITLED: '(Untitled)',
             },
