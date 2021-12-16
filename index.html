@@ -141,6 +141,317 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-11-15T15:17:32.000Z">2021-11-15</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    15 minutes read (About 2179 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/11/15/MySQL基础/">MySQL基础</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h2><h3 id="一、-DDL-Data-Definition-Languages"><a href="#一、-DDL-Data-Definition-Languages" class="headerlink" title="一、 DDL(Data Definition Languages)"></a>一、 DDL(Data Definition Languages)</h3><p><strong>数据定义语言。</strong><br>定义不同的数据段、数据库、表、列、索引等数据库对象。</p>
+<ol>
+<li>增
+create</li>
+<li>删
+drop</li>
+<li>改
+alter</li>
+</ol>
+<hr>
+<h3 id="二、-DML-Data-Manipulation-Languages"><a href="#二、-DML-Data-Manipulation-Languages" class="headerlink" title="二、 DML(Data Manipulation Languages)"></a>二、 DML(Data Manipulation Languages)</h3><p><strong>数据操纵语句。</strong></p>
+<ol>
+<li>增加数据</li>
+</ol>
+<ul>
+<li>语法<ul>
+<li>insert into 表名(列1,…列N) values(值1,…值N); – 除整型外其他值都要用引号包裹</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>删除数据</li>
+<li>修改数据<br>update 表名 set 列 = 值 where 列 = 值;</li>
+</ol>
+<hr>
+<h3 id="三、-DQL-Data-Query-Languages"><a href="#三、-DQL-Data-Query-Languages" class="headerlink" title="三、 DQL(Data Query Languages)"></a>三、 DQL(Data Query Languages)</h3><p>数据查询语言。</p>
+<ol>
+<li><p>语法</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line">	列表</span><br><span class="line">from</span><br><span class="line">	表名</span><br><span class="line">where</span><br><span class="line">	条件列表</span><br><span class="line">group by</span><br><span class="line">	分组字段</span><br><span class="line">having</span><br><span class="line">	分组之后的条件</span><br><span class="line">order by</span><br><span class="line">	排序</span><br><span class="line">limit</span><br><span class="line">	分页限定;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基础查询</p>
+<ol>
+<li>多个字段的查询<br> select 字段名1,字段名2,… from 表名;</li>
+<li>去除重复<ul>
+<li>distinct</li>
+</ul>
+</li>
+<li>计算列<ul>
+<li>一般可以使用四则运算计算一些列的值。</li>
+<li>ifnull(表达式，替换值)</li>
+</ul>
+</li>
+<li>起别名<ul>
+<li>as(可以省略)</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>条件查询</p>
+<ol>
+<li>运算符号<ul>
+<li>NULL值不能用 = 来比较,应该使用IS NULL;</li>
+<li>不等号用 &lt;&gt;;</li>
+<li>在里面用 in;</li>
+<li>在…之间用 BETWEEN IN;</li>
+</ul>
+</li>
+<li>模糊查询 LIKE<blockquote>
+<p>占位符</p>
+<blockquote>
+<p><strong>_</strong>:表示一个字符<br><strong>%</strong>:表示多个字符</p>
+</blockquote>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>排序查询</p>
+<ul>
+<li>语法:order by 子句<ul>
+<li>order by  排序字段1 排序方式1,排序字段2 排序方式2,…</li>
+</ul>
+</li>
+<li>排序方式:<ul>
+<li>ASC:升序,默认方式</li>
+<li>DESC:降序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>聚合函数<br> <strong>将一列数据作为一个整体，进行纵向计算。</strong></p>
+<ol>
+<li>count:计算个数</li>
+<li>max:求最大值</li>
+<li>min:求最小值</li>
+<li>sum:求数据和</li>
+<li>avg:求平均值</li>
+</ol>
+<ul>
+<li><strong>注意</strong>聚合函数都会排除空值。</li>
+</ul>
+</li>
+<li><p>分组查询</p>
+<ol>
+<li>语法:group by 分组字段;</li>
+<li>注意:分组字段,聚合函数</li>
+<li>where 和 having的区别？<ul>
+<li>前者在分组之前判断，后者在分组后筛选</li>
+<li>where后不能跟聚合函数</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>分页查询</p>
+<ol>
+<li>语法:limit 开始的索引,每页的条数</li>
+<li>公式:开始的索引 = （当前页码 - 1）*每页显示的条数</li>
+<li>limit是MySQL的”方言”</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h3 id="四、-约束"><a href="#四、-约束" class="headerlink" title="四、 约束"></a>四、 约束</h3><ul>
+<li><p>概念：对表中的数据进行限定，保证数据的正确性、有效性和完整性</p>
+</li>
+<li><p>分类：</p>
+<ol>
+<li><p>主键约束：primary key</p>
+<ol>
+<li><p>注意：</p>
+<ol>
+<li>含义：非空且唯一</li>
+<li>一张表只能有一个字段为主键</li>
+<li>主键时表中记录的唯一标识</li>
+</ol>
+</li>
+<li><p>在创建表时，添加主键</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create table 表名(id int primary key ,</span><br><span class="line">					name varchar(20)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建完成后再添加主键</li>
+<li>ALTER TABLE 表名 MODIFY 字段名 PRIMARY KEY;</li>
+</ul>
+</li>
+<li><p>删除主键<br> ALTER TABLE 表名 DROP PRIMARY KEY; – 由于表中只有一个主键，故不必指定字段</p>
+</li>
+<li><p>自动增长(一般和主键一块使用)</p>
+<ol>
+<li>概念：如果某一列是数值类型的，使用AUTO_INCREMENT;</li>
+<li>删除自动增长： <figure class="highlight plain hljs"><figcaption><span>TABLE 表名 MODIFY 字段 int;```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">2. 非空约束：not null</span><br><span class="line">	* 添加：</span><br><span class="line">		1. 创建表时添加</span><br><span class="line">		2. 后面修改</span><br><span class="line">	* 删除：</span><br><span class="line">		* 直接修改</span><br><span class="line">3. 唯一约束：unique</span><br><span class="line">	* 添加</span><br><span class="line">		* 创建时添加约束</span><br><span class="line">		* 后期修改添加约束</span><br><span class="line">			* 注意：通过修改方式添加约束时，列里元素不能有重复。</span><br><span class="line">	* 删除</span><br><span class="line">		* alter table 表名 drop index 列名;</span><br><span class="line">4. 外键约束：foreign key</span><br><span class="line">	**让表与表产生关系，从而保证数据的正确性**</span><br><span class="line">	1. 在创建表时，添加外键约束</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>语法：create table 表名(<pre><code>    ...
+    外键列
+    constraint 外键名称 foreign key 外键列名称 references 主表名称(主表列名称)
+);</code></pre><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">		2. 删除外键</span><br><span class="line">		ALTER TABLE 表名 DROP FOREIGN KRY 外键名称;</span><br><span class="line">		3. 创建之后添加外键</span><br><span class="line">		ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (字段) REFERENCES 主表名称(主表字段);</span><br><span class="line">		4. 级联操作</span><br><span class="line">			1. 设置级联</span><br><span class="line">				* 级联更新</span><br><span class="line">					ON UPDATE CASCADE</span><br><span class="line">				* 级联删除</span><br><span class="line">					ON DELETE CASCADE</span><br><span class="line">			2. 添加级联</span><br><span class="line">				</span><br><span class="line">			3. 删除级联</span><br><span class="line">---</span><br><span class="line">### 五、 多表查询</span><br><span class="line">1. 内连接查询</span><br><span class="line">	1. 隐式内连接</span><br><span class="line">	2. </span><br><span class="line">2. 外连接查询</span><br><span class="line">3. 子查询</span><br><span class="line">	1. 子查询的结果是单行单列的</span><br><span class="line">		* 子查询可以作为条件,使用&gt; , &lt; , = ...</span><br><span class="line">	2. 子查询的结果是多行单列的</span><br><span class="line">		* 使用 in</span><br><span class="line">	3. 子查询的结果是多行多列的</span><br><span class="line">		* 子查询可以作为一张虚拟表来查询</span><br><span class="line">---</span><br><span class="line">## 数据库的设计</span><br><span class="line">1. 多表之间的关系</span><br><span class="line">	1. 一对一:</span><br><span class="line">	* 实现：在任意一方添加唯一外键指向另一方主键</span><br><span class="line">		* 如：人和身份证号码</span><br><span class="line">	2. 一对多（多对一）：</span><br><span class="line">	* 实现：在多的一方建立外键，指向一的主键。</span><br><span class="line">		* 如：部门和员工</span><br><span class="line">			* 一个部门有多个员工，一个员工只能对应一个部门</span><br><span class="line">	3. 多对多：</span><br><span class="line">	* 实现：创建一个中间表，字段为其他表的主键，中间表指向其他表</span><br><span class="line">		* 如：学生和课程：</span><br><span class="line">			* 一个学生可以选择多个课程，一个课程也可以被多个学生选择</span><br><span class="line">2. 数据库设计的范式</span><br><span class="line">	* 概念：设计数据库时，需要遵循的一些范式。</span><br><span class="line">	</span><br><span class="line">	* 分类：</span><br><span class="line">		1. 第一范式（1NF）：每一列都是不可分割的原子数据项。</span><br><span class="line">		2. 第二范式（2NF）：在1NF基础上，非码属性必须完全依赖于候选码（在1NF基础上消除非主属性对主码部分函数依赖）。</span><br><span class="line">			* 码：在一张表中，一个属性（属性组）被其他属性完全依赖，称这个属性（组）为该表的码。</span><br><span class="line">		3. 第三范式（3NF）：在2NF基础上，任何非主属性不依赖于其他非主属性（在2NF基础上消除传递依赖）。</span><br><span class="line">---</span><br><span class="line">## 数据库的备份和还原</span><br><span class="line">1. 命令行</span><br><span class="line">	* 备份：</span><br><span class="line">	```mysqldump -u用户名 -p密码 数据库名称 &gt; X:\\...\\xx.sql;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>还原：<ol>
+<li>登录数据库</li>
+<li>创建数据库</li>
+<li>使用数据库</li>
+<li>执行文件 <figure class="highlight plain hljs"><figcaption><span>文件路径```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">## 事务</span><br><span class="line">1. 事务的基本介绍</span><br><span class="line">	* 如果一个包含多个步骤的业务操作，被事务管理，要么这些操作同事成功，要么同事失败。</span><br><span class="line">	1. 开启事务</span><br><span class="line">	```start transaction</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li><p>回滚</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3. 提交</span><br><span class="line">```commit</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>MySQL数据库中事务默认自动提交</p>
+</li>
+</ol>
+<ul>
+<li>一条DML语句会自动提交一次事务。</li>
+<li>修改默认提交方式<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select @@autocommit; -- 查询</span><br><span class="line">set @@autocommit = 0; -- 0手动提交,1自动提交</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>事务的四大特征<ol>
+<li>原子性：是不可分割的最小操作单位，要么同时</li>
+<li>持久性： 当事务提交或回滚之后，数据会持久化的保存数据。</li>
+<li>隔离性：多个事务之间，相互独立。</li>
+<li>一致性：事务操作后，数据总量不变。</li>
+</ol>
+</li>
+<li>事务的隔离级别<ul>
+<li>概念：多个事务之间是隔离的，相互独立的。但是如果多个事务操作同一批数据，则会引发一些问题，设置不同的隔离级别就可以解决这些问题。</li>
+<li>存在问题：<ol>
+<li>脏读：一个事务，读取到另一个事务中没有提交的数据</li>
+<li>不可重复读（虚读）：在同一个事务中，两次读取的数据不一样。</li>
+<li>幻读：一个事务操作（DML）数据表中所有记录，另一个事务添加了一条数据，则第一个事务查询不到自己的修改。</li>
+</ol>
+</li>
+<li>隔离级别：<ol>
+<li>read uncommitted：读未提交<ul>
+<li>产生的问题：脏读、不可重复读、幻读</li>
+</ul>
+</li>
+<li>read committed：读已提交<ul>
+<li>产生的问题：不可重复读、幻读</li>
+</ul>
+</li>
+<li>repeatbale read：不可重复读<ul>
+<li>产生的问题：可重复读（MySQL默认）</li>
+</ul>
+</li>
+<li>serializable：串行化<ul>
+<li>解决所有问题</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>注意：隔离级别从小到大安全性越来越高，但是效率越来越低</li>
+<li>数据库隔离级别设置<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select @@tx_isolation; -- 查询隔离级别</span><br><span class="line">set global transaction isolation level 级别字符串; -- 设置隔离级别</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="DCL"><a href="#DCL" class="headerlink" title="DCL:"></a>DCL:</h2><ol>
+<li><p>管理用户</p>
+<ol>
+<li><p>添加用户</p>
+<figure class="highlight plain hljs"><figcaption><span>user 'username'@'host' identified by 'password';```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2. 删除用户</span><br><span class="line">```drop user &apos;username&apos;@&apos;host&apos;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改用户</p>
+<figure class="highlight plain hljs"><figcaption><span>USER SET PASSWORD </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```SET PASSWORD FOR &apos;username&apos;@&apos;host&apos; = PASSWORD(newpassword);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询用户</p>
+<ol>
+<li>切换到MySQL数据库</li>
+<li>查询USER表</li>
+</ol>
+<ul>
+<li>注意：’%’表示可以在任意主机上使用该用户登录。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>忘记root的密码咋搞？</p>
+<ol>
+<li><p>停止运行mysql<figure class="highlight plain hljs"><figcaption><span>stop mysql```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2. 使用无验证方式启动mysql服务```mysql --skip--grant-tables</span><br></pre></td></tr></table></figure></p>
+</li>
+<li><p>打开新的cmd窗口，直接输入mysql命令，就可以登录成功</p>
+</li>
+<li><p>修改root用户的密码</p>
+</li>
+<li><p>关闭两个窗口</p>
+</li>
+<li><p>打开任务管理器，手动结束mysqld.exe进程</p>
+</li>
+<li><p>启动mysql服务</p>
+</li>
+<li><p>使用新密码登录</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>权限管理</p>
+<ol>
+<li><p>查询权限</p>
+<figure class="highlight plain hljs"><figcaption><span>grants for 'username'@'host';```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2. 授予权限</span><br><span class="line">```grant 权限列表 on 数据库名.表名 to &apos;用户名&apos;@&apos;主机名&apos;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>撤销权限<br><code>revoke 权限列表 on 数据库名.表名 from &#39;用户名&#39;@&#39;主机名&#39;;</code></p>
+</li>
+</ol>
+</li>
+</ol>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2021-10-25T08:09:52.000Z">2021-10-25</time>
                 
                 
@@ -591,17 +902,17 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Articles
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        5
+                        6
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Catégories
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
                         0
@@ -621,7 +932,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/sammyshm" target="_blank">
-                SUIVRE</a>
+                Follow</a>
         </div>
         
         
@@ -652,7 +963,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Liens
+            Links
         </h3>
         <ul class="menu-list">
         
@@ -690,7 +1001,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Catégories
+                Categories
             </h3>
             <ul class="menu-list">
             
@@ -708,8 +1019,27 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Récents
+            Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2021/11/15/MySQL基础/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="MySQL基础">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-11-15T15:17:32.000Z">2021-11-15</time></div>
+                    <a href="/2021/11/15/MySQL基础/" class="has-link-black-ter is-size-6">MySQL基础</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -787,25 +1117,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/06/05/hello-world/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-06-05T03:59:39.730Z">2019-06-05</time></div>
-                    <a href="/2019/06/05/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -817,6 +1128,17 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2021/10/">
@@ -873,8 +1195,27 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Récents
+            Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2021/11/15/MySQL基础/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="MySQL基础">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-11-15T15:17:32.000Z">2021-11-15</time></div>
+                    <a href="/2021/11/15/MySQL基础/" class="has-link-black-ter is-size-6">MySQL基础</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -952,25 +1293,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/06/05/hello-world/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-06-05T03:59:39.730Z">2019-06-05</time></div>
-                    <a href="/2019/06/05/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -982,6 +1304,17 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2021/10/">
@@ -1193,9 +1526,9 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Articles',
+                POSTS: 'Posts',
                 PAGES: 'Pages',
-                CATEGORIES: 'Catégories',
+                CATEGORIES: 'Categories',
                 TAGS: 'Tags',
                 UNTITLED: '(Untitled)',
             },
